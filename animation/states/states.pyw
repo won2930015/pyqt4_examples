@@ -40,7 +40,12 @@
 ## $QT_END_LICENSE$
 ##
 #############################################################################
+# <editor-fold desc="动画切换界面">
 # 状态机
+# QGraphicsObject::http://www.sgyma.com/hhlm_49365.html
+# QGraphicsProxyWidget::
+#
+# </editor-fold>
 
 from PyQt4 import QtCore, QtGui
 
@@ -121,14 +126,14 @@ if __name__ == '__main__':
     scene.addItem(p5)
     scene.addItem(p6)
 
-    machine = QtCore.QStateMachine()
+    machine = QtCore.QStateMachine()  # StateMachine:状态机
     state1 = QtCore.QState(machine)
     state2 = QtCore.QState(machine)
     state3 = QtCore.QState(machine)
-    machine.setInitialState(state1)
+    machine.setInitialState(state1)  # InitialState:初始状态
 
     # State 1.
-    state1.assignProperty(button, 'text', "Switch to state 2")
+    state1.assignProperty(button, 'text', "Switch to state 2")  # assignProperty:指派属性
     state1.assignProperty(widget, 'geometry', QtCore.QRectF(0, 0, 400, 150))
     state1.assignProperty(box, 'geometry', QtCore.QRect(-200, 150, 200, 150))
     state1.assignProperty(p1, 'pos', QtCore.QPointF(68, 185))
@@ -143,7 +148,7 @@ if __name__ == '__main__':
     state1.assignProperty(p4, 'rotation', -270.0)
     state1.assignProperty(p5, 'rotation', -90.0)
     state1.assignProperty(p6, 'rotation', 270.0)
-    state1.assignProperty(boxProxy, 'opacity', 0.0)
+    state1.assignProperty(boxProxy, 'opacity', 0.0)  # opacity:不透明度
     state1.assignProperty(p1, 'opacity', 1.0)
     state1.assignProperty(p2, 'opacity', 1.0)
     state1.assignProperty(p3, 'opacity', 1.0)
@@ -192,9 +197,9 @@ if __name__ == '__main__':
     state3.assignProperty(p5, 'opacity', 1.0)
     state3.assignProperty(p6, 'opacity', 1.0)
 
-    t1 = state1.addTransition(button.clicked, state2)
-    animation1SubGroup = QtCore.QSequentialAnimationGroup()
-    animation1SubGroup.addPause(250)
+    t1 = state1.addTransition(button.clicked, state2)  # addTransition:加入过渡[设置状态机的过度]
+    animation1SubGroup = QtCore.QSequentialAnimationGroup()  # SequentialAnimationGroup:连续动画组
+    animation1SubGroup.addPause(250)  # addPause:加入暂停
     animation1SubGroup.addAnimation(QtCore.QPropertyAnimation(box, 'geometry', state1))
     t1.addAnimation(animation1SubGroup)
     t1.addAnimation(QtCore.QPropertyAnimation(widget, 'geometry', state1))
